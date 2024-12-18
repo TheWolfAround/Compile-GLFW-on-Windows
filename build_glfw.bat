@@ -7,7 +7,7 @@
 )
 
 @if not exist "%cd%\glfw" (
-    git clone https://github.com/glfw/glfw.git --recursive
+    git clone --depth 1 https://github.com/glfw/glfw.git --recursive
 ) else (
     echo glfw folder already exists.
 )
@@ -32,8 +32,10 @@ echo Selected Cmake Generator: %CMAKE_GENERATOR%
 set /P build_choice=Choose build type (1 for Release, 2 for Debug):
 if "%build_choice%"=="1" (
     set BUILD_TYPE=Release
+    set COMPILE_FLAGS="/MP /O2 /arch:AVX2"
 ) else if "%build_choice%"=="2" (
     set BUILD_TYPE=Debug
+    set COMPILE_FLAGS="/MP /arch:AVX2"
 ) else (
     echo Invalid build_choice. Please enter 1 or 2.
     exit /b 1
@@ -62,6 +64,7 @@ set /P "=Press any to start compilation." <nul & pause >nul & echo(
 set /a THREAD_COUNT = %NUMBER_OF_PROCESSORS% - 2
 
 cmake -G %CMAKE_GENERATOR% ^
+-D CMAKE_C_FLAGS=%COMPILE_FLAGS% ^
 -D CMAKE_BUILD_TYPE=%BUILD_TYPE% ^
 -D GLFW_BUILD_WIN32=ON ^
 -D GLFW_LIBRARY_TYPE=%LINK_TYPE% ^
