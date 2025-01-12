@@ -35,7 +35,7 @@ if "%build_choice%"=="1" (
     set COMPILE_FLAGS="/MP /O2 /arch:AVX2"
 ) else if "%build_choice%"=="2" (
     set BUILD_TYPE=Debug
-    set COMPILE_FLAGS="/MP /O0"
+    set COMPILE_FLAGS="/MP /Od"
 ) else (
     echo Invalid build_choice. Please enter 1 or 2.
     exit /b 1
