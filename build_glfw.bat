@@ -32,7 +32,7 @@ echo Selected Cmake Generator: %CMAKE_GENERATOR%
 set /P build_choice=Choose build type (1 for Release, 2 for Debug):
 if "%build_choice%"=="1" (
     set BUILD_TYPE=Release
-    set COMPILE_FLAGS="/MP /O2 /arch:AVX2"
+    set COMPILE_FLAGS="/MP /O2 /arch:SSE4.2"
 ) else if "%build_choice%"=="2" (
     set BUILD_TYPE=Debug
     set COMPILE_FLAGS="/MP /Od"
